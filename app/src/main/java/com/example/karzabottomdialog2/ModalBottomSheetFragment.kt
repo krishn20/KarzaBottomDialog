@@ -11,19 +11,14 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class ModalBottomSheetFragment : BottomSheetDialogFragment() {
+class ModalBottomSheetFragment private constructor(
+    private val headingR: String?,
+    private val subheadingR: String?,
+    private val positiveTextR: String?,
+    private val negativeTextR: String?,
+    private val iconR: Int?
+    ) : BottomSheetDialogFragment() {
 
-    private val PARAM1 = "param1"
-    private val PARAM2 = "param2"
-    private val PARAM3 = "param3"
-    private val PARAM4 = "param4"
-    private val PARAM5 = "param5"
-
-    private lateinit var headingText: String
-    private lateinit var subheadingText: String
-    private lateinit var positiveButtonText: String
-    private lateinit var negativeButtonText: String
-    private var iconDraw = 0
 
     private lateinit var heading: TextView
     private lateinit var subHeading: TextView
@@ -37,8 +32,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 
     //-----------------------------------------------------------------------------------------------------//
 
-    fun setCommunicator(communicator: Communicator)
-    {
+    fun setCommunicator(communicator: Communicator) {
         this.communicator = communicator
     }
 
@@ -47,23 +41,14 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
-
-        if (arguments != null)
-        {
-            headingText = arguments?.getString(PARAM1).toString()
-            subheadingText = arguments?.getString(PARAM2).toString()
-            positiveButtonText = arguments?.getString(PARAM3).toString()
-            negativeButtonText = arguments?.getString(PARAM4).toString()
-            iconDraw = arguments?.getInt(PARAM5, R.drawable.error_with_bg)!!.toInt()
-        }
-
     }
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState)
-        val view =  LayoutInflater.from(context).inflate(R.layout.fragment_modal_bottom_sheet, null, false)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.fragment_modal_bottom_sheet, null, false)
 
         this.isCancelable = false
 
@@ -77,24 +62,23 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
         viewLine = view.findViewById(R.id.view2)
         icon = view.findViewById(R.id.icon_sheet)
 
-        heading.text = headingText
-        subHeading.text = subheadingText
-        exitBtn.text = negativeButtonText
-        tryAgainBtn.text = positiveButtonText
-        icon?.setImageResource(iconDraw)
+        heading.text = headingR
+        subHeading.text = subheadingR
+        exitBtn.text = negativeTextR
+        tryAgainBtn.text = positiveTextR
+        if (iconR != null) {
+            icon?.setImageResource(iconR)
+        }
 
 
         //-----------------------------------------------------------------------------------------------------//
         //---------------------Setting up buttons according to the values received----------------------------//
 
-        if (negativeButtonText.isNotEmpty())
-        {
+        if (!negativeTextR.isNullOrBlank()) {
             exitBtn.visibility = View.VISIBLE
             tryAgainBtn.visibility = View.VISIBLE
             viewLine.visibility = View.VISIBLE
-        }
-        else
-        {
+        } else {
             exitBtn.visibility = View.GONE
             viewLine.visibility = View.GONE
             tryAgainBtn.visibility = View.VISIBLE
@@ -124,21 +108,23 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
     //-----------------------------------------------------------------------------------------------------//
     //-----------------------------------------------------------------------------------------------------//
 
-    companion object
-    {
-        @JvmStatic
-        fun instance(heading: String, subheading: String, positiveText: String, negativeText: String, icon: Int): ModalBottomSheetFragment
-        {
-            return ModalBottomSheetFragment().apply {
-                val bundle = Bundle()
-                bundle.putString(PARAM1, heading)
-                bundle.putString(PARAM2, subheading)
-                bundle.putString(PARAM3, positiveText)
-                bundle.putString(PARAM4, negativeText)
-                bundle.putInt(PARAM5, icon)
-                arguments = bundle
-            }
-        }
+    data class Builder(
+        var headingR: String? = null,
+        var subheadingR: String? = null,
+        var positiveTextR: String? = null,
+        var negativeTextR: String? = null,
+        var iconR: Int? = null
+    ) {
+
+        fun heading(heading: String) = apply { this.headingR = heading }
+        fun subheading(subheading: String) = apply { this.subheadingR = subheading }
+        fun positiveText(positiveText: String) = apply { this.positiveTextR = positiveText }
+        fun negativeText(negativeText: String) = apply { this.negativeTextR = negativeText }
+        fun icon(icon: Int) = apply { this.iconR = icon }
+
+        fun build() =
+            ModalBottomSheetFragment(headingR, subheadingR, positiveTextR, negativeTextR, iconR)
     }
+
 
 }

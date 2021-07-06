@@ -35,13 +35,26 @@ class HomeFragment : Fragment(), Communicator {
         b2 = view.findViewById(R.id.button2)
 
         b1.setOnClickListener {
-            val mbsf = ModalBottomSheetFragment.instance(heading, subHeading, positiveBtnText, negativeBtnText, icon)
+            val mbsf = ModalBottomSheetFragment.Builder()
+                .heading(heading)
+                .subheading(subHeading)
+                .positiveText(positiveBtnText)
+                .negativeText(negativeBtnText)
+                .icon(icon)
+                .build()
+
             mbsf.setCommunicator(this)
             mbsf.show(parentFragmentManager, "TAG")
         }
 
         b2.setOnClickListener {
-            val mbsf = ModalBottomSheetFragment.instance(heading, subHeading, positiveBtnText, "", icon)
+            val mbsf = ModalBottomSheetFragment.Builder()
+                .heading(heading)
+                .subheading(subHeading)
+                .positiveText(positiveBtnText)
+                .icon(icon)
+                .build()
+
             mbsf.setCommunicator(this)
             mbsf.show(parentFragmentManager, "TAG")
         }
