@@ -27,16 +27,9 @@ class ModalBottomSheetFragment private constructor(
     private lateinit var tryAgainBtn: Button
     private var icon: ImageView? = null
     private lateinit var viewLine: View
-//    private var communicator: Communicator? = null
 
-
-//    //-----------------------------------------------------------------------------------------------------//
-//
-//    fun setCommunicator(communicator: Communicator) {
-//        this.communicator = communicator
-//    }
-//
-//    //-----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------------------------------//
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +45,9 @@ class ModalBottomSheetFragment private constructor(
 
         this.isCancelable = false
 
+
         //-----------------------------------------------------------------------------------------------------//
-        //----------------------------------------------------------------------------------------------------//
+
 
         heading = view.findViewById(R.id.tvErrorHeading)
         subHeading = view.findViewById(R.id.tvErrorSubheading)
@@ -73,6 +67,7 @@ class ModalBottomSheetFragment private constructor(
 
         //-----------------------------------------------------------------------------------------------------//
         //---------------------Setting up buttons according to the values received----------------------------//
+
 
         if (!negativeTextR.isNullOrBlank()) {
             exitBtn.visibility = View.VISIBLE

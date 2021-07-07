@@ -20,6 +20,8 @@ class HomeFragment : Fragment(), Communicator {
     private lateinit var b1: Button
     private lateinit var b2: Button
 
+    //----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------------------------------//
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +30,6 @@ class HomeFragment : Fragment(), Communicator {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        //----------------------------------------------------------------------------------------------------//
         //----------------------------------------------------------------------------------------------------//
 
         b1 = view.findViewById(R.id.button1)
