@@ -16,7 +16,8 @@ class ModalBottomSheetFragment private constructor(
     private val subheadingR: String?,
     private val positiveTextR: String?,
     private val negativeTextR: String?,
-    private val iconR: Int?
+    private val iconR: Int?,
+    private val communicatorR: Communicator?
     ) : BottomSheetDialogFragment() {
 
 
@@ -25,18 +26,17 @@ class ModalBottomSheetFragment private constructor(
     private lateinit var exitBtn: Button
     private lateinit var tryAgainBtn: Button
     private var icon: ImageView? = null
-
     private lateinit var viewLine: View
-    private var communicator: Communicator? = null
+//    private var communicator: Communicator? = null
 
 
-    //-----------------------------------------------------------------------------------------------------//
-
-    fun setCommunicator(communicator: Communicator) {
-        this.communicator = communicator
-    }
-
-    //-----------------------------------------------------------------------------------------------------//
+//    //-----------------------------------------------------------------------------------------------------//
+//
+//    fun setCommunicator(communicator: Communicator) {
+//        this.communicator = communicator
+//    }
+//
+//    //-----------------------------------------------------------------------------------------------------//
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,12 +91,12 @@ class ModalBottomSheetFragment private constructor(
 
 
         exitBtn.setOnClickListener {
-            communicator?.onPressNegative()
+            communicatorR?.onPressNegative()
             this.dismiss()
         }
 
         tryAgainBtn.setOnClickListener {
-            communicator?.onPressPositive()
+            communicatorR?.onPressPositive()
             this.dismiss()
         }
 
@@ -113,7 +113,8 @@ class ModalBottomSheetFragment private constructor(
         var subheadingR: String? = null,
         var positiveTextR: String? = null,
         var negativeTextR: String? = null,
-        var iconR: Int? = null
+        var iconR: Int? = null,
+        var communicatorR: Communicator? = null
     ) {
 
         fun heading(heading: String) = apply { this.headingR = heading }
@@ -121,9 +122,10 @@ class ModalBottomSheetFragment private constructor(
         fun positiveText(positiveText: String) = apply { this.positiveTextR = positiveText }
         fun negativeText(negativeText: String) = apply { this.negativeTextR = negativeText }
         fun icon(icon: Int) = apply { this.iconR = icon }
+        fun communicator(communicator: Communicator) = apply { this.communicatorR = communicator }
 
         fun build() =
-            ModalBottomSheetFragment(headingR, subheadingR, positiveTextR, negativeTextR, iconR)
+            ModalBottomSheetFragment(headingR, subheadingR, positiveTextR, negativeTextR, iconR, communicatorR)
     }
 
 

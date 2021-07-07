@@ -41,9 +41,9 @@ class HomeFragment : Fragment(), Communicator {
                 .positiveText(positiveBtnText)
                 .negativeText(negativeBtnText)
                 .icon(icon)
+                .communicator(this)
                 .build()
 
-            mbsf.setCommunicator(this)
             mbsf.show(parentFragmentManager, "TAG")
         }
 
@@ -53,9 +53,9 @@ class HomeFragment : Fragment(), Communicator {
                 .subheading(subHeading)
                 .positiveText(positiveBtnText)
                 .icon(icon)
+                .communicator(this)
                 .build()
 
-            mbsf.setCommunicator(this)
             mbsf.show(parentFragmentManager, "TAG")
         }
 
